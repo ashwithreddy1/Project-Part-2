@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.1.1
+- https://www.phpmyadmin.net
+-
+- Host: 127.0.0.1
+- Generation Time: Nov 09, 2022 at 08:11 PM
+- Server version: 10.4.22-MariaDB
+- PHP Version: 7.4.27
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="inflatable_innovative_toys" collation="utf8mb4_general_ci" charset="utf8mb4">
+            <pma:table name="categories">
+                CREATE TABLE `categories` (
+                  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `category_name` varchar(255) NOT NULL,
+                  `status` tinyint(4) NOT NULL DEFAULT 1,
+                  PRIMARY KEY (`category_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="customers">
+                CREATE TABLE `customers` (
+                  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `customer_name` varchar(255) NOT NULL,
+                  `address` varchar(500) NOT NULL,
+                  `city` varchar(255) NOT NULL,
+                  `state` varchar(255) NOT NULL,
+                  `country` varchar(255) NOT NULL,
+                  `pincode` varchar(25) NOT NULL,
+                  `phone` varchar(25) NOT NULL,
+                  `email` varchar(255) NOT NULL,
+                  `website` varchar(255) NOT NULL,
+                  `status` tinyint(4) NOT NULL DEFAULT 1,
+                  `created_date_time` datetime NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`customer_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="orders">
+                CREATE TABLE `orders` (
+                  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `order_no` int(11) NOT NULL,
+                  `customer_id` int(11) NOT NULL,
+                  `order_amount` float NOT NULL,
+                  `total_discount` float NOT NULL,
+                  `gst` float NOT NULL,
+                  `payable_amount` float NOT NULL,
+                  `order_date` datetime NOT NULL,
+                  `payment_status` varchar(255) NOT NULL,
+                  `status` varchar(255) NOT NULL,
+                  PRIMARY KEY (`order_id`),
+                  KEY `customer_id` (`customer_id`),
+                  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="order_line_items">
+                CREATE TABLE `order_line_items` (
+                  `order_line_item_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `order_id` int(11) NOT NULL,
+                  `product_id` int(11) NOT NULL,
+                  `unit_price` float NOT NULL,
+                  `quantity` smallint(6) NOT NULL,
+                  `discount` float NOT NULL,
+                  `discount_type` varchar(5) NOT NULL,
+                  `amount` float NOT NULL,
+                  `status` tinyint(4) NOT NULL DEFAULT 1,
+                  PRIMARY KEY (`order_line_item_id`),
+                  KEY `product_id` (`product_id`),
+                  KEY `order_id` (`order_id`),
+                  CONSTRAINT `order_line_items_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
+                  CONSTRAINT `order_line_items_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="products">
+                CREATE TABLE `products` (
+                  `product_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `product_name` varchar(255) NOT NULL,
+                  `category_id` int(11) NOT NULL,
+                  `specification` text NOT NULL,
+                  `price` float NOT NULL,
+                  `discount` float NOT NULL,
+                  `discount_type` varchar(5) NOT NULL,
+                  `status` tinyint(4) NOT NULL DEFAULT 1,
+                  PRIMARY KEY (`product_id`),
+                  KEY `category_id` (`category_id`),
+                  CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Database: 'inflatable_innovative_toys'
+    -->
+    <database name="inflatable_innovative_toys">
+        <!-- Table categories -->
+        <table name="categories">
+            <column name="category_id">1</column>
+            <column name="category_name">Soft toys</column>
+            <column name="status">1</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">2</column>
+            <column name="category_name">Electronic toys</column>
+            <column name="status">1</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">3</column>
+            <column name="category_name">Wooden</column>
+            <column name="status">1</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">4</column>
+            <column name="category_name">Puzzle</column>
+            <column name="status">1</column>
+        </table>
+        <!-- Table customers -->
+        <table name="customers">
+            <column name="customer_id">1</column>
+            <column name="customer_name">Venkat</column>
+            <column name="address">Kukatpally</column>
+            <column name="city">Hyderabad</column>
+            <column name="state">TS</column>
+            <column name="country">India</column>
+            <column name="pincode">500072</column>
+            <column name="phone"></column>
+            <column name="email">venkat@jtnu.com</column>
+            <column name="website">jntu.com</column>
+            <column name="status">1</column>
+            <column name="created_date_time">2022-11-10 00:21:48</column>
+        </table>
+        <table name="customers">
+            <column name="customer_id">2</column>
+            <column name="customer_name">xyz</column>
+            <column name="address">xyz address</column>
+            <column name="city">xyz city</column>
+            <column name="state">TS</column>
+            <column name="country">INDIA</column>
+            <column name="pincode">500068</column>
+            <column name="phone">9876543210</column>
+            <column name="email">xyz@jntu.com</column>
+            <column name="website">jntu.com</column>
+            <column name="status">1</column>
+            <column name="created_date_time">2022-11-10 00:21:48</column>
+        </table>
+        <table name="customers">
+            <column name="customer_id">3</column>
+            <column name="customer_name">abc</column>
+            <column name="address">abc address</column>
+            <column name="city">Hyd</column>
+            <column name="state">TS</column>
+            <column name="country">India</column>
+            <column name="pincode">500056</column>
+            <column name="phone">6598658455</column>
+            <column name="email">abc@hyd.com</column>
+            <column name="website">https://www.hyd.com</column>
+            <column name="status">1</column>
+            <column name="created_date_time">2022-11-10 00:32:51</column>
+        </table>
+        <!-- Table orders -->
+        <table name="orders">
+            <column name="order_id">1</column>
+            <column name="order_no">1</column>
+            <column name="customer_id">1</column>
+            <column name="order_amount">3200</column>
+            <column name="total_discount">100</column>
+            <column name="gst">14</column>
+            <column name="payable_amount">3534</column>
+            <column name="order_date">2022-11-09 19:51:54</column>
+            <column name="payment_status">Paid</column>
+            <column name="status">Closed</column>
+        </table>
+        <table name="orders">
+            <column name="order_id">2</column>
+            <column name="order_no">2</column>
+            <column name="customer_id">2</column>
+            <column name="order_amount">5000</column>
+            <column name="total_discount">0</column>
+            <column name="gst">14</column>
+            <column name="payable_amount">5700</column>
+            <column name="order_date">2022-11-09 19:51:54</column>
+            <column name="payment_status">Paid</column>
+            <column name="status">Closed</column>
+        </table>
+        <table name="orders">
+            <column name="order_id">3</column>
+            <column name="order_no">3</column>
+            <column name="customer_id">3</column>
+            <column name="order_amount">2500</column>
+            <column name="total_discount">0</column>
+            <column name="gst">14</column>
+            <column name="payable_amount">2850</column>
+            <column name="order_date">2022-11-09 20:02:57</column>
+            <column name="payment_status">Paid</column>
+            <column name="status">Closed</column>
+        </table>
+        <!-- Table order_line_items -->
+        <table name="order_line_items">
+            <column name="order_line_item_id">1</column>
+            <column name="order_id">1</column>
+            <column name="product_id">1</column>
+            <column name="unit_price">1000</column>
+            <column name="quantity">1</column>
+            <column name="discount">10</column>
+            <column name="discount_type">%</column>
+            <column name="amount">900</column>
+            <column name="status">1</column>
+        </table>
+        <table name="order_line_items">
+            <column name="order_line_item_id">2</column>
+            <column name="order_id">1</column>
+            <column name="product_id">2</column>
+            <column name="unit_price">2200</column>
+            <column name="quantity">1</column>
+            <column name="discount">0</column>
+            <column name="discount_type">INR</column>
+            <column name="amount">2200</column>
+            <column name="status">1</column>
+        </table>
+        <table name="order_line_items">
+            <column name="order_line_item_id">3</column>
+            <column name="order_id">2</column>
+            <column name="product_id">3</column>
+            <column name="unit_price">2500</column>
+            <column name="quantity">2</column>
+            <column name="discount">0</column>
+            <column name="discount_type">INR</column>
+            <column name="amount">2500</column>
+            <column name="status">1</column>
+        </table>
+        <table name="order_line_items">
+            <column name="order_line_item_id">4</column>
+            <column name="order_id">3</column>
+            <column name="product_id">4</column>
+            <column name="unit_price">500</column>
+            <column name="quantity">3</column>
+            <column name="discount">0</column>
+            <column name="discount_type">INR</column>
+            <column name="amount">1500</column>
+            <column name="status">1</column>
+        </table>
+        <table name="order_line_items">
+            <column name="order_line_item_id">5</column>
+            <column name="order_id">3</column>
+            <column name="product_id">3</column>
+            <column name="unit_price">1000</column>
+            <column name="quantity">1</column>
+            <column name="discount">0</column>
+            <column name="discount_type">INR</column>
+            <column name="amount">1000</column>
+            <column name="status">1</column>
+        </table>
+        <!-- Table products -->
+        <table name="products">
+            <column name="product_id">1</column>
+            <column name="product_name">Teddy bear</column>
+            <column name="category_id">1</column>
+            <column name="specification">The fur of soft toys is usually made from wool, nylon, silk, rayon, synthetic, or a combination of fibers.</column>
+            <column name="price">1000</column>
+            <column name="discount">10</column>
+            <column name="discount_type">%</column>
+            <column name="status">1</column>
+        </table>
+        <table name="products">
+            <column name="product_id">2</column>
+            <column name="product_name">Aeroplane</column>
+            <column name="category_id">2</column>
+            <column name="specification">Required 2 AA Battery</column>
+            <column name="price">2200</column>
+            <column name="discount">0</column>
+            <column name="discount_type">INR</column>
+            <column name="status">1</column>
+        </table>
+        <table name="products">
+            <column name="product_id">3</column>
+            <column name="product_name">Baby Shark</column>
+            <column name="category_id">1</column>
+            <column name="specification">Beautiful and soft fur</column>
+            <column name="price">2500</column>
+            <column name="discount">0</column>
+            <column name="discount_type">INR</column>
+            <column name="status">1</column>
+        </table>
+        <table name="products">
+            <column name="product_id">4</column>
+            <column name="product_name">Rubik's cube</column>
+            <column name="category_id">4</column>
+            <column name="specification">Made of good plastic. It is good for children.</column>
+            <column name="price">500</column>
+            <column name="discount">0</column>
+            <column name="discount_type">INR</column>
+            <column name="status">1</column>
+        </table>
+    </database>
+</pma_xml_export>
